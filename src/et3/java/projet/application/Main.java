@@ -23,12 +23,6 @@ public class Main
 				System.out.println("[Main] End of the file " + args[0] + ".");
 			}
 			else
-				
-				
-				
-				
-				
-				
 			{
 				System.out.println("[Main] No file " + args[0]);
 			}
