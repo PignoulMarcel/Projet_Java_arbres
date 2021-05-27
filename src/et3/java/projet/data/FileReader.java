@@ -1,6 +1,7 @@
 package et3.java.projet.data;
 
 import java.io.BufferedReader;
+import et3.java.projet.application.Mairie;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -159,7 +160,7 @@ public class FileReader
 	        			geographicalPoint2D[1] = null;
 	        		}
                 
-                //TODO Do something with data
+               et3.java.projet.application.Mairie.
                     
                 System.out.println(
                 		idBase + ";" +
