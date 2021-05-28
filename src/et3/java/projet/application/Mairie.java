@@ -7,12 +7,8 @@ import et3.java.projet.data.FileReader;
 public class Mairie {
 	
 	private Arbre[] ListeArbre;
-	
-	public void AddArbre() {
-		
-	}
-	
-	
+	private AmateurDArbres[] amateurDArbres;
+
 	public void LoadArbre(File F) {
 		if(F.length > 0)
 		{
@@ -39,8 +35,18 @@ public class Mairie {
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
 		}
 	}
-	
+
 	public Mairie() {
 		
 	}
+
+	public void generererArbreRemarquable(){
+
+	}
+
+	public void operationArbre(){
+
+	}
+
+
 }

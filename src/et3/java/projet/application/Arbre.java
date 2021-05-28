@@ -19,12 +19,5 @@ public class Arbre {
 	public Arbre() {
 		
 	}
-	public GetAttribut(int id){
-		Array Arbre = new Array();
-		return Arbre;
-		
-	}
-	
-	
 
 }
