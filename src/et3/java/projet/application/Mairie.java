@@ -1,41 +1,42 @@
 package et3.java.projet.application;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import et3.java.projet.data.FileReader;
 
 public class Mairie {
 	
-	private Arbre[] ListeArbre;
-	private AmateurDArbres[] amateurDArbres;
+	private List<Arbre> ListeArbre = new ArrayList<Arbre>();
+	private List<AmateurDArbres> amateurDArbres = new ArrayList<AmateurDArbres>();
 
-	public void ChargerArbre(File F) {
+	
+	public void AjouterArbre(Arbre arbre) {
+		ListeArbre.add(arbre);
+	}
+	
+	public void ChargerArbre() {
 		
-		if(F.length > 0)
+		
+		File tempFile = new File("date.csv");
+		if(tempFile.exists())
 		{
-			File tempFile = new File(F);
-			
-			if(tempFile.exists())
-			{
-				System.out.println("[Main] Reading the file " + F.getName() + " ...");
+			System.out.println("Lecture du fichier " + tempFile.getName() + " ...");
 						
-				//We start by reading the CSV file
+			//We start by reading the CSV file
+			FileReader.getDataFromCSVFile(tempFile.toString());
 				
-				FileReader.getDataFromCSVFile(F);
-				
-				System.out.println("[Main] End of the file " + F.getName() + ".");
-			}
-			else
-			{
-				System.out.println("[Main] No file " + F.getName());
-				
-			}
+			System.out.println("Fin du fichier " + tempFile.getName() + ".");
 		}
 		else
 		{
-			System.out.println("[Main] You should enter the CSV file path as a parameter.");
+				System.out.println("Aucun fichier " + tempFile.getName());
+			
 		}
-	}
+}
+		
+	
 
 	public Mairie() {
 		

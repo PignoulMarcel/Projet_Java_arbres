@@ -12,7 +12,7 @@ import et3.java.projet.data.FileReader;
 
 public class Main 
 {
-	Mairie mairie = new Mairie();
+	//Mairie mairie = new Mairie();
 
 	
 	//Affichage sur la console et gestion des entrées/sorties
@@ -38,7 +38,7 @@ public class Main
 	public static void main(String[] args) 
 	{		
 		//Charge les arbres
-		mairie.chargerArbre();
+		Mairie.ChargerArbre();			//COMPREND PAS PK IL ME DIT DE METTRE UN 'STATIC'
 		GestionAffichage();
 		
 	}

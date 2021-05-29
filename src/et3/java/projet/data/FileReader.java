@@ -1,15 +1,18 @@
 package et3.java.projet.data;
 
 import java.io.BufferedReader;
+
+import et3.java.projet.application.Arbre;
 import et3.java.projet.application.Mairie;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class FileReader 
+public class FileReader  extends Mairie
 {
 	public static void getDataFromCSVFile(String csvFilePath)
 	{
@@ -49,7 +52,6 @@ public class FileReader
         		return;
         	}
         	
-        	int i = 1;
         	
         	//Read the file line by line
             while ((line = bufferedReader.readLine()) != null)
@@ -159,8 +161,12 @@ public class FileReader
 	        		{
 	        			geographicalPoint2D[1] = null;
 	        		}
+                Date date = new Date();
+                Arbre arbre = new Arbre(genre, espece, libelleFrancais,circonferenceEnCm, hauteurEnM, stadeDeveloppement,  adresse, geographicalPoint2D,remarquable,date, idBase);
                 
-                   
+                AjouterArbre(arbre);
+                	
+                	
                 System.out.println(
                 		idBase + ";" +
                 		typeEmplacement + ";" +

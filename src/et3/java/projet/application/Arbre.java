@@ -16,8 +16,20 @@ public class Arbre  {
 	private Date Date_remarquable;
 	private int id;
 	
-	public Arbre() {
-		super();
+	public Arbre(String Genre, String Espece, String Nom, int Circonference, int Hauteur, String Developpement, String Adresse, Float[] Coordonnees, boolean Remarquable, Date Date_remarquable, int id) {
+		this.Genre = Genre;
+		this.Espece = Espece;
+		this.Nom = Nom;
+		this.Circonference = Circonference;
+		this.Hauteur = Hauteur;
+		this.Developpement = Developpement;
+		this.Adresse = Adresse;
+		this.Coordonnees = Coordonnees;
+		this.Remarquable = Remarquable;
+		this.Date_remarquable = Date_remarquable;
+		this.id = id;
+		
+
 	}
 
 }
