@@ -1,8 +1,10 @@
 package et3.java.projet.application;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import et3.java.projet.data.FileReader;
 
@@ -23,7 +25,8 @@ public class Mairie {
 		if(tempFile.exists())
 		{
 			System.out.println("Lecture du fichier " + tempFile.getName() + " ...");
-						
+			
+	      	
 			//We start by reading the CSV file
 			FileReader.getDataFromCSVFile(tempFile.toString());
 				
@@ -41,9 +44,21 @@ public class Mairie {
 	public Mairie() {
 		
 	}
-
+	
+	
+	
 	public void generererArbreRemarquable(Arbre arbre){
-
+		ListeArbre.get(rechercheArbre(arbre)).setRemarquable(false);
+	}
+	
+	public int rechercheArbre(Arbre arbre) {
+		for(int i =0; i<ListeArbre.size();i++) {
+			if(ListeArbre.get(i).getid() == arbre.getid()) {
+				return i;
+			}
+		}
+		System.out.println("L'arbre recherché n'existe pas.\n");
+		return 0;
 	}
 
 	public void operationArbre(){
