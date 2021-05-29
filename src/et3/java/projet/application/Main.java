@@ -29,6 +29,8 @@ public class Main
 			@SuppressWarnings("resource")
 			int action = Integer.parseInt(new Scanner(System.in).nextLine());
 			System.out.println(action);
+			//TODO 
+			//Réaliser les actions souhaitée
 			
 		}
 	}
@@ -36,7 +38,7 @@ public class Main
 	public static void main(String[] args) 
 	{		
 		//Charge les arbres
-	//	mairie.chargerArbre();
+		mairie.chargerArbre();
 		GestionAffichage();
 		
 	}

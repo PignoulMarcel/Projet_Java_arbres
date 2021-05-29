@@ -10,7 +10,7 @@ public class Mairie {
 	private AmateurDArbres[] amateurDArbres;
 
 	public void ChargerArbre(File F) {
-		/*
+		
 		if(F.length > 0)
 		{
 			File tempFile = new File(F);
@@ -34,7 +34,7 @@ public class Mairie {
 		else
 		{
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
-		}*/
+		}
 	}
 
 	public Mairie() {
