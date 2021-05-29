@@ -11,4 +11,8 @@ public class AmateurDArbres {
         incId += 1;
     }
 
+    public int getId() {
+    	return id;
+    }
+    
 }

@@ -160,8 +160,7 @@ public class FileReader
 	        			geographicalPoint2D[1] = null;
 	        		}
                 
-               et3.java.projet.application.Mairie.
-                    
+                   
                 System.out.println(
                 		idBase + ";" +
                 		typeEmplacement + ";" +

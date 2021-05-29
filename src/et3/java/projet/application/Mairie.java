@@ -9,7 +9,8 @@ public class Mairie {
 	private Arbre[] ListeArbre;
 	private AmateurDArbres[] amateurDArbres;
 
-	public void LoadArbre(File F) {
+	public void ChargerArbre(File F) {
+		/*
 		if(F.length > 0)
 		{
 			File tempFile = new File(F);
@@ -33,14 +34,14 @@ public class Mairie {
 		else
 		{
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
-		}
+		}*/
 	}
 
 	public Mairie() {
 		
 	}
 
-	public void generererArbreRemarquable(){
+	public void generererArbreRemarquable(Arbre arbre){
 
 	}
 

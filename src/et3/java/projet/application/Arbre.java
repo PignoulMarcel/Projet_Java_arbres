@@ -3,7 +3,7 @@ package et3.java.projet.application;
 import java.util.Date;
 
 
-public class Arbre {
+public class Arbre  {
 	private String Genre;
 	private String Espece;
 	private String Nom;
@@ -17,7 +17,7 @@ public class Arbre {
 	private int id;
 	
 	public Arbre() {
-		
+		super();
 	}
 
 }

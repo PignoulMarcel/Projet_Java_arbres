@@ -11,8 +11,10 @@ public class Membre extends Personne{
 
     }
 
-    public Vote vote(){
+   // public Vote vote(){
 
-    }
+ //   }
+    
+    
 
 }
