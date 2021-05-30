@@ -18,7 +18,11 @@ public class Membre extends Personne{
 
     }
 
-
+    /**
+     * Vote pour ses arbres préférés
+     * @param arbresDispo arbres sur lesquels voter
+     * @return Arbres votés
+     */
     protected Vote vote(ArrayList<Arbre> arbresDispo){
         //protected pour ne passer que les arbresDispo en paramètres(et que seulement l'association puisse connaitre le votre)
         Set<Arbre> arbreVote = new HashSet<Arbre>();

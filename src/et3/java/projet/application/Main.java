@@ -138,7 +138,7 @@ public class Main
 		association.inscription(p2);
 		association.inscription(p3);
 		System.out.println(f.getAbsolutePath());
-		mairie.chargerArbres(f, mairie);	
+		mairie.chargerArbres(f);
 		GestionAffichage(mairie, association);
 		
 	}//PAS ID

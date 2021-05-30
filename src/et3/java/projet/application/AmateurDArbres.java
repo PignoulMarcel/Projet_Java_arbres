@@ -11,6 +11,7 @@ public class AmateurDArbres {
     private float fonds = 0;
     private static int incId = 0;
 
+
     public AmateurDArbres(){
         this.id = incId;
         incId += 1;
