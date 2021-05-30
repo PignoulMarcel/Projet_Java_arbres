@@ -30,8 +30,8 @@ public class Association extends Entite {
     				//Supprimer ici les données lié au membre
     				String nom = membres.get(i).getNom();
     				String prenom = membres.get(i).getPrenom();
-    				
-    				membres.get(i).SupprimerDonnées();
+
+
     				membres.remove(i);
     				System.out.println("Le membre " + nom + " " + prenom + " ne fait plus parti de l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
     			}catch (IndexOutOfBoundsException e) {
@@ -73,7 +73,7 @@ public class Association extends Entite {
     //Vérifie si chaque membre a payé ses cotisations durant l'année écoulé
     //Si pas le cas, le supprime de la liste des membres
     public void CotisationNonRéglé() {
-    	int NbMembreRenvoyé = 0;
+    	int NbMembreRenvoye = 0;
     	@SuppressWarnings("deprecation")
 		Date UneAnnée = new Date(1,0,0);
     	for(int i = 0; i<membres.size();i++) {
@@ -81,22 +81,56 @@ public class Association extends Entite {
     		if((System.currentTimeMillis() - membres.get(i).getDerniereOperation().getDate().getTime()) > UneAnnée.getTime() ) {
     			try {
     				renvoiMembre(membres.get(i));
-    				NbMembreRenvoyé +=1;
+    				NbMembreRenvoye +=1;
     			}catch (IndexOutOfBoundsException e) {
     				System.out.println(e.getMessage());
     			}
     		}
     	}
-    	if(NbMembreRenvoyé == 1) {
+    	if(NbMembreRenvoye == 1) {
     		System.out.println("1 personne n'a pas réglé sa cotisation");
-    	}else if(NbMembreRenvoyé>1) {
-    		System.out.println(NbMembreRenvoyé + " personnes n'ont pas réglé leur cotisation");
+    	}else if(NbMembreRenvoye>1) {
+    		System.out.println(NbMembreRenvoye + " personnes n'ont pas réglé leur cotisation");
     	}else {
     		System.out.println("Tous les membres ont réglé leur cotisation");
     	}
     }
     
-
+    public boolean payerFacture(float montant){
+    	float montantTotal = 0f;				//Montant que possède l'association
+    	for(int i = 0; i<membres.size(); i++) {
+    		montantTotal += membres.get(i).getFonds();	
+    		if(montantTotal>montant) {
+    			for(int j = 0; j<membres.size(); j++) {
+    				if(membres.get(j).getFonds()>= montant){
+    					membres.get(j).setFonds(membres.get(j).getFonds()-montant);
+    					return true;
+    				}else {
+    					montant -= membres.get(j).getFonds();
+    					membres.get(j).setFonds(0);
+    				}
+    			}
+    		}
+    	}
+    	
+    	for(int i = 0; i<donateurs.size(); i++) {
+    		montantTotal += donateurs.get(i).getFonds();
+    		if(montantTotal>montant) {
+    			for(int j = 0; j<donateurs.size(); j++) {
+    				if(donateurs.get(j).getFonds()>= montant){
+    					donateurs.get(j).setFonds(membres.get(j).getFonds()-montant);
+    					return true;
+    				}else {
+    					montant -= donateurs.get(j).getFonds();
+    					donateurs.get(j).setFonds(0);
+    				}
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    
     public void payer(Membre membre){
 
     }
@@ -121,6 +155,15 @@ public class Association extends Entite {
     	}
     }
 
-
+    public Membre ChercheMembre(Personne personne) {
+    	for(int i =0; i<membres.size(); i++) {
+    		if(personne.getNom() == membres.get(i).getNom()) {
+    			if(personne.getPrenom() == membres.get(i).getPrenom()) {
+        			return membres.get(i);
+        		}
+    		}
+    	}
+    	return null;	
+    }
 	
 }

@@ -14,10 +14,11 @@ public class Main
 {
 	private Mairie mairie;
 
-	Association association = new Association();
+//	Association association = new Association();
 	
 	//Affichage sur la console et gestion des entrées/sorties
 	public static void GestionAffichage() {
+		Association association = new Association();
 		while(true) {
 
 			StringBuilder sb = new StringBuilder();
@@ -37,23 +38,48 @@ public class Main
 			if(action == 1){
 				System.out.println("1--Fin de l'exercice budgétaire en cours : \n");
 				System.out.println("Vérification des cotisations... \n");
-				association.CotisationNonRéglé();
+			//	association.CotisationNonRéglé();
 				
 				
 				System.out.println("Génération du rapport d'activité... \n");
 				
 				
-				
+				association.ResetRapport();
 			}
 			if(action == 2){
 				System.out.println("2--Affichage des recettes de cotisation d'un membre : ");
-				Membre membre = new Membre(personne);//temp
-				membre.afficherRecettes;
+				System.out.println("\nMerci d'entrer le prénom du membre : ");
+				@SuppressWarnings("resource")
+				String prenom = new Scanner(System.in).nextLine();
+				System.out.println("\nMerci d'entrer le nom du membre : ");
+				
+				@SuppressWarnings("resource")
+				String nom = new Scanner(System.in).nextLine();
+				System.out.println("\n");
+				
+				Personne PersonneaRechercher = new Personne(nom, prenom, null, null);
+				
+				Membre membreaRechercher = association.ChercheMembre(PersonneaRechercher);
+				if (membreaRechercher != null) {
+					
+					membreaRechercher.genererRecette();
+				}else {
+					System.out.println(prenom + " " + nom + " ne correspond à aucun membre de l'association.\n");
+				}
 			}
 			if(action == 3){
-				System.out.println("3--Paiement d'une facture reçue : ");
-				Association association = new Association();
-				association.payer(membre);
+				System.out.println("3--Paiement d'une facture reçue : \n");
+				System.out.println("Merci d'indiquer le montant de la facture : ");
+				@SuppressWarnings("resource")
+				float montant = Float.parseFloat(new Scanner(System.in).nextLine());
+				System.out.println("\n");
+				if(association.payerFacture(montant)) {
+					System.out.println("La facture d'un montant de " + montant + " a bien été créditée.\n");
+					
+				}else {
+					System.out.println("La facture d'un montant de " + montant + " n'a pas pu être créditée.\n");
+					
+				}
 			}
 			if(action == 4){
 				System.out.println("4--Inscription ou suppression d'un donateur : ");
