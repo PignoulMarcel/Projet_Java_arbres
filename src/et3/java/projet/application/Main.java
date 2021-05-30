@@ -17,8 +17,7 @@ public class Main
 //	Association association = new Association();
 
 	//Affichage sur la console et gestion des entrées/sorties
-	public static void GestionAffichage(Mairie mairie) {
-		Association association = new Association();
+	public static void GestionAffichage(Mairie mairie, Association association) {
 		while(true) {
 
 			StringBuilder sb = new StringBuilder();
@@ -109,7 +108,7 @@ public class Main
 			}
 			if(action == 6){
 				System.out.println("6--Vote d'un membre pour la reconnaissance d'un arbre remarquable : ");
-				membre.vote();
+				association.genererVotes(mairie.getListeArbre());
 			}
 			if(action == 7){
 				System.out.println("7.Notification de la plantation ou de l'abattage d'un arbre ou de la classification d'un arbre remarquable : ");
@@ -123,9 +122,10 @@ public class Main
 	public static void main(String[] args)
 	{
 		Mairie mairie = new Mairie(new Date(2021,05,30));
+		Association association = new Association();
 		//Charge les arbres
 		mairie.chargerArbre();			//COMPREND PAS PK IL ME DIT DE METTRE UN 'STATIC'
-		GestionAffichage(mairie);
+		GestionAffichage(mairie, association);
 		
 	}
 	

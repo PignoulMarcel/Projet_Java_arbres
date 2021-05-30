@@ -36,6 +36,11 @@ public class Association extends Entite {
 	}
 
 	
+	public Membre ChercheMembre(Personne personne) {
+		//TODO
+		return null;
+	}
+	
 	public Membre GetPresident() {
 		return president;
 	}

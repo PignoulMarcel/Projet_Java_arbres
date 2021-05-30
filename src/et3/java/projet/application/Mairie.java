@@ -63,5 +63,8 @@ public class Mairie {
 			arbre.setRemarquable(new Date());
 		}
 	}
-
+	public ArrayList<Arbre> getListeArbre(){
+		return ListeArbre;
+	}
+	
 }
