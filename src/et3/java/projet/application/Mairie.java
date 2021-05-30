@@ -21,7 +21,7 @@ public class Mairie {
 	public void ChargerArbre() {
 		
 		
-		File tempFile = new File("date.csv");
+		File tempFile = new File("./data/data.csv");
 		if(tempFile.exists())
 		{
 			System.out.println("Lecture du fichier " + tempFile.getName() + " ...");
