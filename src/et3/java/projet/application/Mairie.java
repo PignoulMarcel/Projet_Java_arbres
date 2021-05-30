@@ -14,21 +14,17 @@ public class Mairie {
 	
 	private ArrayList<Arbre> ListeArbre;
 	private ArrayList<AmateurDArbres> amateurDArbres;
-	private Date date;
 	
 	public void ajouterArbre(Arbre arbre) {
-		if(!ListeArbre.contains(arbre)) {
+		if(!ListeArbre.contains(arbre)) {//impossible car la date ne peut pas être identique, il faut un id d'arbre
 			for (AmateurDArbres notifies : amateurDArbres) {
-				notifies.getNotification(new OperationArbre(arbre, TypeModif.plantage, date));
+				notifies.getNotification(new OperationArbre(arbre, TypeModif.plantage, new Date()));
 			}
 			ListeArbre.add(arbre);
 		}
 	}
 	
-	public void chargerArbre() {
-		
-		
-		File tempFile = new File("./data/data.csv");
+	public void chargerArbres(File tempFile) {
 		if(tempFile.exists())
 		{
 			System.out.println("Lecture du fichier " + tempFile.getName() + " ...");
@@ -50,22 +46,10 @@ public class Mairie {
 
 	}
 
-	public Mairie(Date date) {
-		this.date = date;
-	}
-	
-	public void ajoutDate(Date date){
-		this.date = new Date(this.date.getTime() + date.getTime());
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
 	public void suppressionArbre(Arbre arbre){
 		if(ListeArbre.contains(arbre)) {
 			for (AmateurDArbres notifies : amateurDArbres) {
-				notifies.getNotification(new OperationArbre(arbre, TypeModif.decoupage, date));
+				notifies.getNotification(new OperationArbre(arbre, TypeModif.decoupage, new Date()));
 			}
 			ListeArbre.remove(arbre);
 		}
@@ -74,9 +58,9 @@ public class Mairie {
 	public void ajoutRemarquable(Arbre arbre){
 		if(ListeArbre.contains(arbre)) {
 			for (AmateurDArbres notifies : amateurDArbres) {
-				notifies.getNotification(new OperationArbre(arbre, TypeModif.classificationRemarquable, date));
+				notifies.getNotification(new OperationArbre(arbre, TypeModif.classificationRemarquable, new Date()));
 			}
-			arbre.setRemarquable(date);
+			arbre.setRemarquable(new Date());
 		}
 	}
 

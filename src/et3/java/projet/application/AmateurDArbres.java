@@ -1,7 +1,6 @@
 package et3.java.projet.application;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class AmateurDArbres {
@@ -22,6 +21,10 @@ public class AmateurDArbres {
     }
     public void setFonds(float fonds) {
     	this.fonds = fonds;
+    }
+
+    public void changeFonds(float fonds){
+        this.fonds += fonds;
     }
 
     protected AmateurDArbres(int id){

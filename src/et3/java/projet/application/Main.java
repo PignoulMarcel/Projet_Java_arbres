@@ -59,7 +59,7 @@ public class Main
 
 				Personne PersonneaRechercher = new Personne(nom, prenom, null, null);
 
-				Membre membreaRechercher = association.ChercheMembre(PersonneaRechercher);
+				Membre membreaRechercher = association.chercheMembre(PersonneaRechercher);
 				if (membreaRechercher != null) {
 
 					membreaRechercher.genererRecette();

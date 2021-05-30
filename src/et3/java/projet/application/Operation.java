@@ -28,8 +28,4 @@ public class Operation {
     	return date;
     }
 
-    public void setMontant(int montant) {
-        this.montant = montant;
-
-    }
 }

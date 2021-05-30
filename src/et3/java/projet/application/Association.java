@@ -13,70 +13,74 @@ import et3.java.projet.application.Operation;
 
 public class Association extends Entite {
 	Membre president;
-
-	List<Membre> membres = new ArrayList<Membre>();
-	List<AmateurDArbres> donateurs = new ArrayList<AmateurDArbres>();
+	ArrayList<Visite> listeVisites;
+	ArrayList<Operation> listeOperations;
+	ArrayList<Membre> membres;
+	ArrayList<AmateurDArbres> donateurs;
 
 	
 	//Renvoi le memebre de l'association et supprime ses données
 	//@param membre est le membre à renvoyer
 	public void renvoiMembre(Membre membre){
-		for(int i = 0; i<membres.size();i++) {
-    		if(membres.get(i).getId() == membre.getId()) {
-    			try {
-    				//TODO
-    				//Supprimer ici les données lié au membre
-    				String nom = membres.get(i).getNom();
-    				String prenom = membres.get(i).getPrenom();
+					if(!membres.contains(membre)){
+						System.out.println("Le membre " + membre.getNom() + " " + membre.getPrenom() + " n'a pas pu être trouvé");
 
+					}else if(this.president.getId()==membre.getId()){
+    					System.out.println("Vous ne pouvez pas renvoyer le president");
 
-    				membres.remove(i);
-    				System.out.println("Le membre " + nom + " " + prenom + " ne fait plus parti de l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
-    			}catch (IndexOutOfBoundsException e) {
-    				System.out.println(e.getMessage());
-    			}
-    			
-    		}
-    	}
-    }
+    				}else {
+						membres.remove(membre);
+						//On ne sait pas s'il redevient amateurDArbre (on considere que non)
+						System.out.println("Le membre " + membre.getNom() + " " + membre.getPrenom() + " ne fait plus parti de l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
+					}
+	}
+
 	
 	public Membre GetPresident() {
 		return president;
 	}
+
 	public void SetPresident(Membre president) {
-		this.president = president;
+		if(this.president!=null && this.president.getId()!=president.getId())this.president = president;
 	}
 
     public Operation genererRapport(){
     	Operation operation = new Operation();
-    	
     	return operation;
     }
     
     //Met à zero le rapport d'activité de l'exercice écoulé
     //Appelé lors d'une nouvelle année
     public void ResetRapport() {	
-    	
+
     }
 
     public Demande envoiDemande(){
 
     }
 
-    public void inscription(Personne personne){
-    	//Operation.
-    	//membres.add(personne);
+    public boolean inscription(Personne personne){
+		Membre nouveauMembre = new Membre(personne, new Date());
+		for(Membre mem : membres){
+			if(mem.getId()==nouveauMembre.getId())return false;
+		}
+		membres.add(nouveauMembre);
+		return true;
     }
+
 
     //Vérifie si chaque membre a payé ses cotisations durant l'année écoulé
     //Si pas le cas, le supprime de la liste des membres
     public void CotisationNonRéglé() {
     	int NbMembreRenvoye = 0;
-    	@SuppressWarnings("deprecation")
-		Date UneAnnée = new Date(1,0,0);
     	for(int i = 0; i<membres.size();i++) {
-    		
-    		if((System.currentTimeMillis() - membres.get(i).getDerniereOperation().getDate().getTime()) > UneAnnée.getTime() ) {
+			boolean payé = false;
+			ArrayList<Operation> cotisations = membres.get(i).getCotisations();
+			for(Operation operation : cotisations){
+				if(operation.getCrediteur() == this)payé=true;
+			}
+
+    		if(!payé) {
     			try {
     				renvoiMembre(membres.get(i));
     				NbMembreRenvoye +=1;
@@ -93,11 +97,11 @@ public class Association extends Entite {
     		System.out.println("Tous les membres ont réglé leur cotisation");
     	}
     }
-    
+    //TODO
     public boolean payerFacture(float montant){
     	float montantTotal = 0f;				//Montant que possède l'association
     	for(int i = 0; i<membres.size(); i++) {
-    		montantTotal += membres.get(i).getFonds();	
+    		montantTotal += membres.get(i).getFonds();
     		if(montantTotal>montant) {
     			for(int j = 0; j<membres.size(); j++) {
     				if(membres.get(j).getFonds()>= montant){
@@ -134,24 +138,23 @@ public class Association extends Entite {
     }
 
     //Ajoute l'amateur à la liste des amateurs d'arbre
-    public void ajouterDonateur(AmateurDArbres amateurDArbres){
-    	donateurs.add(amateurDArbres);
+    public boolean ajouterDonateur(AmateurDArbres amateurDArbres){
+		for(AmateurDArbres donateur : donateurs){
+			if(donateur.getId()==amateurDArbres.getId())return false;
+		}
+		donateurs.add(amateurDArbres);
+		return true;
     }
-
     
     //Supprime le donateur spécifié
-    //@param amateurDArbres l'amateur qui doit etre suppprimé de la liste
+    //@param amateurDArbres l'amateur qui doit etre supprimé de la liste
     public void supprimerDonateur(AmateurDArbres amateurDArbres){
-    	for(int i = 0; i<donateurs.size();i++) {
-    		if(donateurs.get(i).getId() == amateurDArbres.getId()) {
-    			try {
-    				donateurs.remove(i);
-    				System.out.println("Le donateur a bien été supprimé.\n");
-    			}catch (IndexOutOfBoundsException e) {
-    				System.out.println(e.getMessage());
-    			}
-    		}
-    	}
+		if(!donateurs.contains(amateurDArbres)){
+			System.out.println("Le donnateur n'a pas pu être trouvé");
+		}else {
+			donateurs.remove(amateurDArbres);
+			System.out.println("Le donateur ne donne plus à l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
+		}
     }
 
 	public Vote genererVotes(ArrayList<Arbre> listeArbres){
@@ -197,5 +200,5 @@ public class Association extends Entite {
 		return new Vote((ArrayList<Arbre>)uniquesArbres);
 
 	}
-	
+
 }

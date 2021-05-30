@@ -18,23 +18,25 @@ public class Membre extends Personne{
         personne = null;
 
     }
-    @SuppressWarnings("deprecation")
+
+
 	public void genererRecette(){
     	int indice = 0;
     	for(int i = 0; i<cotisations.size(); i++) {
     		if((System.currentTimeMillis() -cotisations.get(i).getDate().getTime()) < new Date(1,0,0).getTime()) {
     			indice +=1;
-    			System.out.println("Cotisation n�" + indice + ", le "+ cotisations.get(i).getDate().toString() +", de " + cotisations.get(i).getDebiteur() + " � " + cotisations.get(i).getCrediteur() + " pour un montant de " + cotisations.get(i).getMontant() + "\n");
+    			System.out.println("Cotisation n°" + indice + ", le "+ cotisations.get(i).getDate().toString() +", de " + cotisations.get(i).getDebiteur() + " � " + cotisations.get(i).getCrediteur() + " pour un montant de " + cotisations.get(i).getMontant() + "\n");
     
     		}
     	}
     }
 
     public Visite visite(Arbre arbre){
-        return new Visite(this, arbre);
+        return new Visite(this, arbre, new Date());
     }
 
-    public Vote vote(ArrayList<Arbre> arbresDispo){
+    protected Vote vote(ArrayList<Arbre> arbresDispo){
+        //protected pour ne passer que les arbresDispo en paramètres(et que seulement l'association puisse connaitre le votre)
         Set<Arbre> arbreVote = new HashSet<Arbre>();
         //Peut être long puisque l'on enlève pas les arbres déjà choisis mais negligeable car faible proba que cela arrive
         while (arbreVote.size()<Math.min(arbresDispo.size(), 5)){
@@ -53,7 +55,9 @@ public class Membre extends Personne{
     	}
     	return derniere;
     }
-    
-    
+
+    public ArrayList<Operation> getCotisations() {
+        return cotisations;
+    }
 
 }
