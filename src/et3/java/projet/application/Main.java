@@ -38,13 +38,13 @@ public class Main
 			if(action == 1){
 				System.out.println("1--Fin de l'exercice budgétaire en cours : \n");
 				System.out.println("Vérification des cotisations... \n");
-				association.CotisationNonRéglé();
+				association.cotisationNonRéglé();
 				
 				
 				System.out.println("Génération du rapport d'activité... \n");
 				association.genererRapport();
 				
-				association.ResetRapport();
+				association.resetRapport();
 			}
 			if(action == 2){
 				System.out.println("2--Affichage des recettes de cotisation d'un membre : \n");
@@ -57,14 +57,12 @@ public class Main
 				String nom = new Scanner(System.in).nextLine();
 				System.out.println("\n");
 
-				Personne PersonneaRechercher = new Personne(nom, prenom, null, null);
-
-				Membre membreaRechercher = association.ChercheMembre(PersonneaRechercher);
-				System.out.println(membreaRechercher.getPrenom());
+				Membre membreaRechercher = association.chercheMembre(nom, prenom);
 				if (membreaRechercher != null) {
+					System.out.println(membreaRechercher.getPrenom() + ":\n");
 					ArrayList<Operation> cotisation = membreaRechercher.getCotisations();
 					for(int i =0; i <cotisation.size(); i++) {
-						System.out.println(cotisation.get(i).getDate() + " - de " + cotisation.get(i).getCrediteur() + " a " + cotisation.get(i).getDebiteur() + " pour " + cotisation.get(i).getMontant() + "€");
+						System.out.println(cotisation.get(i).getDate() + " - de " + cotisation.get(i).getDebiteur() + " a " + cotisation.get(i).getCrediteur() + " pour " + cotisation.get(i).getMontant() + "€");
 					}
 				}else {
 					System.out.println(prenom + " " + nom + " ne correspond à aucun membre de l'association.\n");
@@ -76,13 +74,7 @@ public class Main
 				@SuppressWarnings("resource")
 				float montant = Float.parseFloat(new Scanner(System.in).nextLine());
 				System.out.println("\n");
-				if(association.payerFacture(montant)) {
-					System.out.println("La facture d'un montant de " + montant + " a bien été créditée.\n");
-
-				}else {
-					System.out.println("La facture d'un montant de " + montant + " n'a pas pu être créditée.\n");
-
-				}
+				association.payerFacture(montant);
 			}
 			if(action == 4){
 				System.out.println("4--Inscription ou suppression d'un donateur : \n");

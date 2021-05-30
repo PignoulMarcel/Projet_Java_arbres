@@ -27,9 +27,9 @@ public class Association extends Entite {
 		
 
 	}
-	public Membre ChercheMembre(Personne personne) {
+	public Membre chercheMembre(String nom, String prenom) {
 		for(int i = 0; i<membres.size(); i++) {
-			if(personne.getNom()==membres.get(i).getNom() && personne.getPrenom()==membres.get(i).getPrenom()) {
+			if(membres.get(i).getNom().equals(nom) && membres.get(i).getPrenom().equals(prenom)) {
 				return membres.get(i);
 			}
 		}
@@ -87,7 +87,7 @@ public class Association extends Entite {
 	/**
 	 * Efface le rapport d'activités
 	 */
-	public void ResetRapport() {
+	public void resetRapport() {
 		rapport = new StringBuilder();
     }
 
@@ -110,7 +110,7 @@ public class Association extends Entite {
 	/**
 	 * Verifie si les membres ont réglé leur cotisation, les renvoi sinon
 	 */
-	public void CotisationNonRéglé() {
+	public void cotisationNonRéglé() {
     	int NbMembreRenvoye = 0;
     	for(int i = 0; i<membres.size();i++) {
 			boolean payé = false;
