@@ -18,6 +18,12 @@ public class Operation {
     public int getMontant() {
         return montant;
     }
+    public AmateurDArbres getDebiteur() {
+    	return debiteur;
+    }
+    public AmateurDArbres getCrediteur() {
+    	return crediteur;
+    }
     public Date getDate() {
     	return date;
     }

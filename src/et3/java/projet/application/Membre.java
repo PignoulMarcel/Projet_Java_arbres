@@ -18,8 +18,16 @@ public class Membre extends Personne{
         personne = null;
 
     }
-    public void genererRecette(){
-
+    @SuppressWarnings("deprecation")
+	public void genererRecette(){
+    	int indice = 0;
+    	for(int i = 0; i<cotisations.size(); i++) {
+    		if((System.currentTimeMillis() -cotisations.get(i).getDate().getTime()) < new Date(1,0,0).getTime()) {
+    			indice +=1;
+    			System.out.println("Cotisation n°" + indice + ", le "+ cotisations.get(i).getDate().toString() +", de " + cotisations.get(i).getDebiteur() + " à " + cotisations.get(i).getCrediteur() + " pour un montant de " + cotisations.get(i).getMontant() + "\n");
+    
+    		}
+    	}
     }
 
     public Visite visite(Arbre arbre){
@@ -45,6 +53,7 @@ public class Membre extends Personne{
     	}
     	return derniere;
     }
+    
     
 
 }
