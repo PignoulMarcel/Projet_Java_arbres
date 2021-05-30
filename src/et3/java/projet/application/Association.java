@@ -2,9 +2,11 @@ package et3.java.projet.application;
 
 
 import java.time.Year;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 import et3.java.projet.application.Operation;
+import java.util.List;
 
 import et3.java.projet.application.Membre;
 import et3.java.projet.application.Operation;
@@ -97,7 +99,7 @@ public class Association extends Entite {
     public boolean payerFacture(float montant){
     	float montantTotal = 0f;				//Montant que possède l'association
     	for(int i = 0; i<membres.size(); i++) {
-    		montantTotal += membres.get(i).getFonds();
+    		montantTotal += membres.get(i).getFonds();	
     		if(montantTotal>montant) {
     			for(int j = 0; j<membres.size(); j++) {
     				if(membres.get(j).getFonds()>= montant){
@@ -110,7 +112,7 @@ public class Association extends Entite {
     			}
     		}
     	}
-
+    	
     	for(int i = 0; i<donateurs.size(); i++) {
     		montantTotal += donateurs.get(i).getFonds();
     		if(montantTotal>montant) {
@@ -127,8 +129,8 @@ public class Association extends Entite {
     	}
     	return false;
     }
-
-
+    
+    
     public void payer(Membre membre){
 
     }
@@ -146,6 +148,7 @@ public class Association extends Entite {
     		if(donateurs.get(i).getId() == amateurDArbres.getId()) {
     			try {
     				donateurs.remove(i);
+    				System.out.println("Le donateur a bien été supprimé.\n");
     			}catch (IndexOutOfBoundsException e) {
     				System.out.println(e.getMessage());
     			}
@@ -153,49 +156,16 @@ public class Association extends Entite {
     	}
     }
 
-
-	public Vote genererVotes(ArrayList<Arbre> listeArbres){
-		ArrayList<Arbre> nonRemarquables = new ArrayList<Arbre>();
-		for(Arbre arbre : listeArbres){
-			if(!arbre.getRemarquable())nonRemarquables.add(arbre);
-		}
-
-		ArrayList<Arbre> listeVotes = new ArrayList<Arbre>();
-		for(Membre membre : membres){
-			listeVotes.addAll(membre.vote(nonRemarquables).getListeArbre());
-		}
-
-		Set<Arbre> uniquesArbres = new HashSet<Arbre>(listeVotes);
-		Collections.sort((ArrayList<Arbre>)uniquesArbres, new Comparator<Arbre>() {//tres lent, a refaire
-			@Override
-			public int compare(Arbre a1, Arbre a2) {
-				boolean plusGrand=false;
-				int frqA1 = Collections.frequency(listeVotes,a1);
-				int frqA2 = Collections.frequency(listeVotes,a2);
-				if(frqA1>frqA2){
-					return 1;
-				}else if(frqA1<frqA2){
-					return 0;
-				}
-
-				if(a1.getCirconference()>a2.getCirconference()){
-					return 1;
-				}else if(a1.getCirconference()<a2.getCirconference()){
-					return 0;
-				}
-
-				if(a1.getHauteur()>a2.getHauteur()){
-					return 1;
-				}else if(a1.getHauteur()<a2.getHauteur()){
-					return 0;
-				}
-
-				return 1;
-			}
-		});
-
-		return new Vote((ArrayList<Arbre>)uniquesArbres);
-
-	}
-
+    public Membre ChercheMembre(Personne personne) {
+    	membres.
+    	for(int i =0; i<membres.size(); i++) {
+    		if(personne.getNom() == membres.get(i).getNom()) {
+    			if(personne.getPrenom() == membres.get(i).getPrenom()) {
+        			return membres.get(i);
+        		}
+    		}
+    	}
+    	return null;	
+    }
+	
 }

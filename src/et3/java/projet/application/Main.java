@@ -82,8 +82,25 @@ public class Main
 				}
 			}
 			if(action == 4){
-				System.out.println("4--Inscription ou suppression d'un donateur : ");
-				association.desinscription();
+				System.out.println("4--Inscription ou suppression d'un donateur : \n");
+
+				System.out.println("Souhaitez vous : \n1-- Inscrire un donateur\n2-- Supprimer un donateur");
+				@SuppressWarnings("resource")
+				int act = Integer.parseInt(new Scanner(System.in).nextLine());
+				if(act == 1) {
+					AmateurDArbres NouvelAmateur = new AmateurDArbres();
+					association.ajouterDonateur(NouvelAmateur);
+					
+				}else if(act ==2) {
+					System.out.println("Merci de renseigner les champs suivant : id du donateur\n");
+					@SuppressWarnings("resource")
+					int id = Integer.parseInt(new Scanner(System.in).nextLine());
+					AmateurDArbres aSupprimer = new AmateurDArbres(id);
+					association.supprimerDonateur(aSupprimer);
+				}else {
+					System.out.println("Erreur, impossible de trouver l'action.");
+				}
+
 
 			}
 			if(action == 5){
