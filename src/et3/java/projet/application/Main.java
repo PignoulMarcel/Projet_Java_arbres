@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import et3.java.projet.application.Mairie;
+import et3.java.projet.application.*;
 
 import et3.java.projet.data.FileReader;
 
@@ -14,6 +14,7 @@ public class Main
 {
 	private Mairie mairie;
 
+	Association association = new Association();
 	
 	//Affichage sur la console et gestion des entrées/sorties
 	public static void GestionAffichage() {
@@ -34,8 +35,15 @@ public class Main
 			@SuppressWarnings("resource")
 			int action = Integer.parseInt(new Scanner(System.in).nextLine());
 			if(action == 1){
-
-
+				System.out.println("1--Fin de l'exercice budgétaire en cours : \n");
+				System.out.println("Vérification des cotisations... \n");
+				association.CotisationNonRéglé();
+				
+				
+				System.out.println("Génération du rapport d'activité... \n");
+				
+				
+				
 			}
 			if(action == 2){
 				System.out.println("2--Affichage des recettes de cotisation d'un membre : ");
@@ -43,7 +51,7 @@ public class Main
 				membre.afficherRecettes;
 			}
 			if(action == 3){
-				System.out.println("3--Payement d'une facture reçue : ");
+				System.out.println("3--Paiement d'une facture reçue : ");
 				Association association = new Association();
 				association.payer(membre);
 			}

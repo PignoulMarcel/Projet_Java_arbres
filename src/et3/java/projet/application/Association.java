@@ -1,6 +1,11 @@
 package et3.java.projet.application;
 
+
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Date;
+
+import et3.java.projet.application.Operation;
 import java.util.List;
 
 import et3.java.projet.application.Membre;
@@ -15,7 +20,7 @@ public class Association extends Entite {
 	List<AmateurDArbres> donateurs = new ArrayList<AmateurDArbres>();
 
 	
-	//Renvoi le memebre de l'association
+	//Renvoi le memebre de l'association et supprime ses données
 	//@param membre est le membre à renvoyer
 	public void renvoiMembre(Membre membre){
 		for(int i = 0; i<membres.size();i++) {
@@ -23,11 +28,16 @@ public class Association extends Entite {
     			try {
     				//TODO
     				//Supprimer ici les données lié au membre
+    				String nom = membres.get(i).getNom();
+    				String prenom = membres.get(i).getPrenom();
     				
+    				membres.get(i).SupprimerDonnées();
     				membres.remove(i);
+    				System.out.println("Le membre " + nom + " " + prenom + " ne fait plus parti de l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
     			}catch (IndexOutOfBoundsException e) {
     				System.out.println(e.getMessage());
     			}
+    			
     		}
     	}
     }
@@ -51,17 +61,41 @@ public class Association extends Entite {
     	
     }
 
-   // public Demande envoiDemande(){
+    public Demande envoiDemande(){
 
-  //  }
+    }
 
     public void inscription(Personne personne){
+    	//Operation.
     	//membres.add(personne);
     }
 
-    public void renvoi(Membre membre){
-
+    //Vérifie si chaque membre a payé ses cotisations durant l'année écoulé
+    //Si pas le cas, le supprime de la liste des membres
+    public void CotisationNonRéglé() {
+    	int NbMembreRenvoyé = 0;
+    	@SuppressWarnings("deprecation")
+		Date UneAnnée = new Date(1,0,0);
+    	for(int i = 0; i<membres.size();i++) {
+    		
+    		if((System.currentTimeMillis() - membres.get(i).getCotisationPayé().getTime()) > UneAnnée.getTime() ) {
+    			try {
+    				renvoiMembre(membres.get(i));
+    				NbMembreRenvoyé +=1;
+    			}catch (IndexOutOfBoundsException e) {
+    				System.out.println(e.getMessage());
+    			}
+    		}
+    	}
+    	if(NbMembreRenvoyé == 1) {
+    		System.out.println("1 personne n'a pas réglé ses cotisations");
+    	}else if(NbMembreRenvoyé>1) {
+    		System.out.println(NbMembreRenvoyé + " personnes n'ont pas réglé leurs cotisations");
+    	}else {
+    		System.out.println("Tous les membres ont réglé leurs cotisations");
+    	}
     }
+    
 
     public void payer(Membre membre){
 
