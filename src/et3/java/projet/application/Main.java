@@ -47,7 +47,7 @@ public class Main
 			}
 			if(action == 2){
 				System.out.println("2--Affichage des recettes de cotisation d'un membre : ");
-				Membre membre = new Membre();//temp
+				Membre membre = new Membre(personne);//temp
 				membre.afficherRecettes;
 			}
 			if(action == 3){
@@ -62,7 +62,7 @@ public class Main
 			}
 			if(action == 5){
 				System.out.println("5.Visite d'un arbre remarquable et affichage de son compte rendu : ");
-				membre.visite();
+				membre.visite(arbre);
 			}
 			if(action == 6){
 				System.out.println("6--Vote d'un membre pour la reconnaissance d'un arbre remarquable : ");

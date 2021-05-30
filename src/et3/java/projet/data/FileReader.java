@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class FileReader  extends Mairie
+public class FileReader extends Mairie
 {
 	public static void getDataFromCSVFile(String csvFilePath)
 	{

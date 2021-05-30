@@ -1,8 +1,8 @@
 package et3.java.projet.application;
 
 public class AmateurDArbres {
-    public final int id;
-    private static Mairie maire;
+    protected final int id;
+    private static Mairie mairie;
 
     private static int incId = 0;
 
@@ -11,8 +11,16 @@ public class AmateurDArbres {
         incId += 1;
     }
 
+    protected AmateurDArbres(int id){
+        this.id = id;
+    }
+
     public int getId() {
     	return id;
+    }
+
+    public void getNotification(Arbre arbre, TypeModif type){
+        //TODO peut etre
     }
     
 }

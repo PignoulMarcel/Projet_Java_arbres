@@ -1,29 +1,39 @@
 package et3.java.projet.application;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Membre extends Personne{
-    Association association;
-    Date CotisationPayé;
-    
-    public void setCotisationPayé(Date date) {
-    	CotisationPayé = date;
+    private Association association;
+    private Date dateArrivee;
+    private ArrayList<Operation> cotisations;
+
+
+    public Membre(Personne personne, Date date){
+        //super.super(personne.getId());//TODO
+        super(personne.getNom(),personne.getPrenom(),personne.getDateDeNaissance(),personne.getAdresse());
+        this.dateArrivee = date;
+        cotisations = new ArrayList<Operation>();
+        personne = null;
+
     }
-    
-    public Date getCotisationPayé() {
-    	return CotisationPayé;
-    }
-    
     public void genererRecette(){
 
     }
 
-    public void visite(Arbre arbre){
-
+    public Visite visite(Arbre arbre){
+        return new Visite(this, arbre);
     }
 
-    public Vote vote(){
-
+    public Vote vote(ArrayList<Arbre> arbresDispo){
+        Set<Arbre> arbreVote = new HashSet<Arbre>();
+        //Peut Ãªtre long puisque l'on enlÃ¨ve pas les arbres dÃ©jÃ  choisis mais negligeable car faible proba que cela arrive
+        while (arbreVote.size()<Math.min(arbresDispo.size(), 5)){
+            arbreVote.add(arbresDispo.get((int)(Math.random() * arbresDispo.size())));
+        }
+        return new Vote(this, (ArrayList<Arbre>) arbreVote);
     }
     
     

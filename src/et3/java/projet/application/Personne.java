@@ -8,38 +8,36 @@ public class Personne extends AmateurDArbres{
     private Date dateDeNaissance;
     private String adresse;
 
+    public Personne(String nom, String prenom, Date dateDeNaissance, String adresse) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateDeNaissance = dateDeNaissance;
+        this.adresse = adresse;
+    }
+
+    public Personne(Membre membre){
+        super(membre.getId());
+        this.nom = membre.getNom();
+        this.prenom = membre.getPrenom();
+        this.dateDeNaissance = membre.getDateDeNaissance();
+        this.adresse = membre.getAdresse();
+        membre = null;
+
+    }
+
     public String getNom() {
-    	return nom;
+        return nom;
     }
+
     public String getPrenom() {
-    	return prenom;
+        return prenom;
     }
- 	public Date getDateNaissance() {
- 		return dateDeNaissance;
- 	}
- 	public String getAdresse() {
- 		return adresse;
- 	}
- 	
- 	public void setNom(String nom) {
- 		this.nom = nom;	
+
+    public Date getDateDeNaissance() {
+        return dateDeNaissance;
     }
-    public void setPrenom(String prenom) {
-    	this.prenom = prenom;
+
+    public String getAdresse() {
+        return adresse;
     }
- 	public void setDateNaissance(Date date) {
- 		this.dateDeNaissance = date;
- 	}
- 	public void setAdresse(String adresse) {
- 		this.adresse = adresse;
- 	}
- 	
- 
- 	public void SupprimerDonnées() {
- 		nom = "";
- 		prenom = "";
- 		dateDeNaissance = null;
- 		adresse = "";
- 	}
-    
 }

@@ -11,7 +11,7 @@ public class Arbre  {
 	private int Hauteur;
 	private String Developpement;
 	private String Adresse;
-	private float[] Coordonnees = new float[2];
+	private Float[] Coordonnees = new Float[2];
 	private boolean Remarquable;
 	private Date Date_remarquable;
 	private int id;
@@ -53,7 +53,7 @@ public class Arbre  {
 	public String getAdresse() {
 		return Adresse;
 	}
-	public float[] getCoordonnees() {
+	public Float[] getCoordonnees() {
 		return Coordonnees;
 	}
 	public boolean getRemarquable() {
