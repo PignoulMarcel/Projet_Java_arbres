@@ -18,9 +18,6 @@ public class Membre extends Personne{
 
     }
 
-    public Visite visite(Arbre arbre){
-        return new Visite(this, arbre, new Date());
-    }
 
     protected Vote vote(ArrayList<Arbre> arbresDispo){
         //protected pour ne passer que les arbresDispo en paramètres(et que seulement l'association puisse connaitre le votre)

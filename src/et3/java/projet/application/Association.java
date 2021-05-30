@@ -1,14 +1,7 @@
 package et3.java.projet.application;
 
 
-import java.time.Year;
 import java.util.*;
-
-import et3.java.projet.application.Operation;
-
-import et3.java.projet.application.Membre;
-import et3.java.projet.application.Operation;
-//import et3.java.projet.application.Demande;
 
 
 public class Association extends Entite {
@@ -196,7 +189,8 @@ public class Association extends Entite {
 				return 1;
 			}
 		});
-		Vote voteFinal = new Vote((ArrayList<Arbre>)uniquesArbres)
+
+		Vote voteFinal = new Vote((ArrayList<Arbre>)uniquesArbres);
 		rapport.append(new Date().toString() + "- Les votes de l'association sont : \n"
 				+"  1. " + voteFinal.getListeArbre().get(0).getNom()
 				+"  2. " + voteFinal.getListeArbre().get(1).getNom()
@@ -208,10 +202,30 @@ public class Association extends Entite {
 
 	}
 
+	public void genererVisites(ArrayList<Arbre> listeArbres){
+		for(Membre membre : membres){
+			if(Math.random()>0.4){
+				float coût = (float)Math.floor(Math.random() * 50 * 100)/100.0f;
+				Visite visite = new Visite(membre,listeArbres.get((int)(Math.random() * (listeArbres.size()))), coût);
+				boolean occupée = false;
+				for(Visite vis : listeVisites){
+					if(vis.getArbre() == visite.getArbre())occupée=true;
+				}
+				if(!occupée && visite.getCoût() < this.getFonds()){
+					listeVisites.add(visite);
+					payer(membre, coût);
+					rapport.append(new Date().toString() + "- Une visite pour " + visite.getArbre().getNom() +" a été programmée\n");
+				}
+			}
+		}
+	}
 
-
-	public void payer(Membre membre){
-
+	public void payer(Membre membre, float montant){
+		membre.changeFonds(montant);
+		this.changeFonds(-montant);
+		Operation operation = new Operation(this,membre, montant);
+		operations.add(operation);
+		rapport.append(operation.getDate().toString() + "- "  + membre.getNom() + " " + membre.getPrenom() + " a été payé " + montant + ".\n");
 	}
 
 
