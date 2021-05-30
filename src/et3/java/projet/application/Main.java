@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -41,7 +42,7 @@ public class Main
 				
 				
 				System.out.println("Génération du rapport d'activité... \n");
-				
+				association.genererRapport();
 				
 				association.ResetRapport();
 			}
@@ -59,9 +60,12 @@ public class Main
 				Personne PersonneaRechercher = new Personne(nom, prenom, null, null);
 
 				Membre membreaRechercher = association.ChercheMembre(PersonneaRechercher);
+				System.out.println(membreaRechercher.getPrenom());
 				if (membreaRechercher != null) {
-
-				//	membreaRechercher.genererRecette();
+					ArrayList<Operation> cotisation = membreaRechercher.getCotisations();
+					for(int i =0; i <cotisation.size(); i++) {
+						System.out.println(cotisation.get(i).getDate() + " - de " + cotisation.get(i).getCrediteur() + " a " + cotisation.get(i).getDebiteur() + " pour " + cotisation.get(i).getMontant() + "€");
+					}
 				}else {
 					System.out.println(prenom + " " + nom + " ne correspond à aucun membre de l'association.\n");
 				}
@@ -97,22 +101,22 @@ public class Main
 					AmateurDArbres aSupprimer = new AmateurDArbres(id);
 					association.supprimerDonateur(aSupprimer);
 				}else {
-					System.out.println("Erreur, impossible de trouver l'action.");
+					System.out.println("Erreur, impossible de trouver l'action demandée.");
 				}
 
 
 			}
 			if(action == 5){
-				System.out.println("5.Visite d'un arbre remarquable et affichage de son compte rendu : ");
-				
+				System.out.println("5.Visite d'un arbre remarquable et affichage de son compte rendu :\n");
+				association.genererVisites(mairie.getListeArbre());
 			}
 			if(action == 6){
 				System.out.println("6--Vote d'un membre pour la reconnaissance d'un arbre remarquable :\n");
-				//association.genererVotes(mairie.getListeArbre());
+				association.genererVotes(mairie.getListeArbre());
 			}
 			if(action == 7){
 				System.out.println("7.Notification de la plantation ou de l'abattage d'un arbre ou de la classification d'un arbre remarquable :\n");
-				//TODO
+				
 			}
 
 			
@@ -122,12 +126,21 @@ public class Main
 	public static void main(String[] args)
 	{
 		Mairie mairie = new Mairie();
-		Association association = new Association("Save Tree");
+		Association association = new Association("Save Tree");		
 		File f = new File("src/et3/java/projet/data/data.csv");
+		//Creation d'une liste de membre
+		Date date = new Date();
+		Personne p1 = new Personne("Cerise", "Albert", date,"3 rue du Lila, 34425");
+		Personne p2 = new Personne("Pomme", "Jean", date,"34 avenue d'orient, 94024");
+		Personne p3 = new Personne("Raisin","Louis", date,"8 impasse du Montmartre, 57294");
+				
+		association.inscription(p1);
+		association.inscription(p2);
+		association.inscription(p3);
 		System.out.println(f.getAbsolutePath());
 		mairie.chargerArbres(f, mairie);	
 		GestionAffichage(mairie, association);
 		
-	}
+	}//PAS ID
 	
 }

@@ -21,19 +21,7 @@ public class Association extends Entite {
 		this.membres = new ArrayList<Membre>();
 		this.donateurs = new ArrayList<AmateurDArbres>();
 		
-		//Creation d'une liste de membre
-				Date date = new Date();
-				Personne p1 = new Personne("albert","Cerise", date,"3 rue du Lila, 34425");
-				Personne p2 = new Personne("Jean","Pomme", date,"34 avenue d'orient, 94024");
-				Personne p3 = new Personne("Louis","Raisin", date,"8 impasse du Montmartre, 57294");
-						
-				Membre m1 = new Membre(p1, date);
-				Membre m2 = new Membre(p2, date);
-				Membre m3 = new Membre(p3, date);
-				membres.add(m1);
-				membres.add(m2);
-				membres.add(m3);
-				president = m1;
+		
 	}
 	public Membre ChercheMembre(Personne personne) {
 		for(int i = 0; i<membres.size(); i++) {
