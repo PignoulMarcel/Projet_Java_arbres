@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FileReader extends Mairie
 {
-	public static void getDataFromCSVFile(String csvFilePath)
+	public static void getDataFromCSVFile(String csvFilePath, Mairie mairie)
 	{
         String line = "";
         String[] data = null;
@@ -164,7 +164,7 @@ public class FileReader extends Mairie
                 Date date = new Date();
                 Arbre arbre = new Arbre(genre, espece, libelleFrancais,circonferenceEnCm, hauteurEnM, stadeDeveloppement,  adresse, geographicalPoint2D,remarquable, date, idBase);
                 
-                ajouterArbre(arbre);
+                mairie.ajouterArbre(arbre);
                 	
                 	
                 System.out.println(

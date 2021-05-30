@@ -29,7 +29,7 @@ public class Main
 			sb.append("5.Réaliser une visite d'un arbre remarquable et afficher son compte rendu.\n");
 			sb.append("6.Réaliser un vote d'un membre pour la reconnaissance d'un arbre remarquable.\n");
 			sb.append("7.Etre notifier de la plantation ou de l'abattage d'un arbre ou de la classification d'un arbre remarquable.\n");
-			sb.append("\nMerci de réaliser votre sélection en indiquant un chiffre :");
+			sb.append("\nMerci de réaliser votre sélection en indiquant un chiffre :\n");
 			System.out.println(sb.toString());
 		
 			@SuppressWarnings("resource")
@@ -37,7 +37,7 @@ public class Main
 			if(action == 1){
 				System.out.println("1--Fin de l'exercice budgétaire en cours : \n");
 				System.out.println("Vérification des cotisations... \n");
-			//	association.CotisationNonRéglé();
+				association.CotisationNonRéglé();
 				
 				
 				System.out.println("Génération du rapport d'activité... \n");
@@ -46,8 +46,8 @@ public class Main
 				association.ResetRapport();
 			}
 			if(action == 2){
-				System.out.println("2--Affichage des recettes de cotisation d'un membre : ");
-				System.out.println("\nMerci d'entrer le prénom du membre : ");
+				System.out.println("2--Affichage des recettes de cotisation d'un membre : \n");
+				System.out.println("Merci d'entrer le prénom du membre : ");
 				@SuppressWarnings("resource")
 				String prenom = new Scanner(System.in).nextLine();
 				System.out.println("\nMerci d'entrer le nom du membre : ");
@@ -58,10 +58,10 @@ public class Main
 
 				Personne PersonneaRechercher = new Personne(nom, prenom, null, null);
 
-				Membre membreaRechercher = association.chercheMembre(PersonneaRechercher);
+				Membre membreaRechercher = association.ChercheMembre(PersonneaRechercher);
 				if (membreaRechercher != null) {
 
-					membreaRechercher.genererRecette();
+				//	membreaRechercher.genererRecette();
 				}else {
 					System.out.println(prenom + " " + nom + " ne correspond à aucun membre de l'association.\n");
 				}
@@ -104,15 +104,15 @@ public class Main
 			}
 			if(action == 5){
 				System.out.println("5.Visite d'un arbre remarquable et affichage de son compte rendu : ");
-				membre.visite(arbre);
+				
 			}
 			if(action == 6){
-				System.out.println("6--Vote d'un membre pour la reconnaissance d'un arbre remarquable : ");
-				association.genererVotes(mairie.getListeArbre());
+				System.out.println("6--Vote d'un membre pour la reconnaissance d'un arbre remarquable :\n");
+				//association.genererVotes(mairie.getListeArbre());
 			}
 			if(action == 7){
-				System.out.println("7.Notification de la plantation ou de l'abattage d'un arbre ou de la classification d'un arbre remarquable : ");
-				mairie.operationArbre(abattage);
+				System.out.println("7.Notification de la plantation ou de l'abattage d'un arbre ou de la classification d'un arbre remarquable :\n");
+				//TODO
 			}
 
 			
@@ -121,10 +121,11 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		Mairie mairie = new Mairie(new Date(2021,05,30));
-		Association association = new Association();
-		//Charge les arbres
-		mairie.chargerArbre();			//COMPREND PAS PK IL ME DIT DE METTRE UN 'STATIC'
+		Mairie mairie = new Mairie();
+		Association association = new Association("Save Tree");
+		File f = new File("src/et3/java/projet/data/data.csv");
+		System.out.println(f.getAbsolutePath());
+		mairie.chargerArbres(f, mairie);	
 		GestionAffichage(mairie, association);
 		
 	}

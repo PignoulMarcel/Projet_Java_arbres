@@ -20,8 +20,30 @@ public class Association extends Entite {
 		this.rapport = new StringBuilder();
 		this.membres = new ArrayList<Membre>();
 		this.donateurs = new ArrayList<AmateurDArbres>();
+		
+		//Creation d'une liste de membre
+				Date date = new Date();
+				Personne p1 = new Personne("albert","Cerise", date,"3 rue du Lila, 34425");
+				Personne p2 = new Personne("Jean","Pomme", date,"34 avenue d'orient, 94024");
+				Personne p3 = new Personne("Louis","Raisin", date,"8 impasse du Montmartre, 57294");
+						
+				Membre m1 = new Membre(p1, date);
+				Membre m2 = new Membre(p2, date);
+				Membre m3 = new Membre(p3, date);
+				membres.add(m1);
+				membres.add(m2);
+				membres.add(m3);
+				president = m1;
 	}
-
+	public Membre ChercheMembre(Personne personne) {
+		for(int i = 0; i<membres.size(); i++) {
+			if(personne.getNom()==membres.get(i).getNom() && personne.getPrenom()==membres.get(i).getPrenom()) {
+				return membres.get(i);
+			}
+		}
+		return null;
+	}
+	
 	//Renvoi le memebre de l'association et supprime ses données
 	//@param membre est le membre à renvoyer
 	public void departMembre(Membre membre){
@@ -211,7 +233,7 @@ public class Association extends Entite {
 				for(Visite vis : listeVisites){
 					if(vis.getArbre() == visite.getArbre())occupée=true;
 				}
-				if(!occupée && visite.getCoût() < this.getFonds()){
+				if(!occupée && visite.getCout() < this.getFonds()){
 					listeVisites.add(visite);
 					payer(membre, coût);
 					rapport.append(new Date().toString() + "- Une visite pour " + visite.getArbre().getNom() +" a été programmée\n");

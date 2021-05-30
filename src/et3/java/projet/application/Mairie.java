@@ -16,22 +16,26 @@ public class Mairie {
 	private ArrayList<AmateurDArbres> amateurDArbres;
 	
 	public void ajouterArbre(Arbre arbre) {
-		if(!ListeArbre.contains(arbre)) {//impossible car la date ne peut pas être identique, il faut un id d'arbre
-			for (AmateurDArbres notifies : amateurDArbres) {
-				notifies.getNotification(new OperationArbre(arbre, TypeModif.plantage, new Date()));
-			}
+		if(ListeArbre.size()==0) {
 			ListeArbre.add(arbre);
+		}else {
+			if(!ListeArbre.contains(arbre)) {//impossible car la date ne peut pas être identique, il faut un id d'arbre
+				for (AmateurDArbres notifies : amateurDArbres) {
+					notifies.getNotification(new OperationArbre(arbre, TypeModif.plantage, new Date()));
+				}
+				ListeArbre.add(arbre);
+			}
 		}
 	}
 	
-	public void chargerArbres(File tempFile) {
+	public void chargerArbres(File tempFile, Mairie mairie) {
 		if(tempFile.exists())
 		{
 			System.out.println("Lecture du fichier " + tempFile.getName() + " ...");
 			
 	      	
 			//We start by reading the CSV file
-			FileReader.getDataFromCSVFile(tempFile.toString());
+			FileReader.getDataFromCSVFile(tempFile.toString(), mairie);
 				
 			System.out.println("Fin du fichier " + tempFile.getName() + ".");
 		}
@@ -43,7 +47,8 @@ public class Mairie {
 	}
 
 	public Mairie(){
-
+		ListeArbre = new ArrayList<Arbre>();
+		amateurDArbres = new ArrayList<AmateurDArbres>();
 	}
 
 	public void suppressionArbre(Arbre arbre){

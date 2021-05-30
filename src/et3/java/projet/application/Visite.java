@@ -6,13 +6,13 @@ public class Visite {
     private Membre membre;
     private Arbre arbre;
     private Date date;
-    private float coût;
+    private float cout;
 
-    public Visite(Membre membre, Arbre arbre, float coût){
+    public Visite(Membre membre, Arbre arbre, float cout){
         this.membre=membre;
         this.arbre=arbre;
         this.date = new Date();
-        this.coût = coût;
+        this.cout = cout;
     }
 
     public Membre getMembre() {
@@ -27,7 +27,7 @@ public class Visite {
         return date;
     }
 
-    public float getCoût() {
-        return coût;
+    public float getCout() {
+        return cout;
     }
 }
