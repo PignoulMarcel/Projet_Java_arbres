@@ -12,8 +12,7 @@ public class Membre extends Personne{
 
 
     public Membre(Personne personne, Date date){
-        //super.super(personne.getId());//TODO
-        super(personne.getNom(),personne.getPrenom(),personne.getDateDeNaissance(),personne.getAdresse());
+        super(personne.getNom(),personne.getPrenom(),personne.getDateDeNaissance(),personne.getAdresse(), personne.getId());
         this.dateArrivee = date;
         cotisations = new ArrayList<Operation>();
         personne = null;
@@ -33,12 +32,12 @@ public class Membre extends Personne{
         while (arbreVote.size()<Math.min(arbresDispo.size(), 5)){
             arbreVote.add(arbresDispo.get((int)(Math.random() * arbresDispo.size())));
         }
-        return new Vote(this, (ArrayList<Arbre>) arbreVote);
+        return new Vote((ArrayList<Arbre>) arbreVote);
     }
     
     public Operation getDerniereOperation() {
     	
-    	Operation derniere = cotisations.get(0);		//On suppose qu'il existe au minimum 1 opération
+    	Operation derniere = cotisations.get(0);		//On suppose qu'il existe au minimum 1 opï¿½ration
     	for(int i =1; i<cotisations.size(); i++) {
     		if(cotisations.get(i).getDate().before(derniere.getDate())) {
     			derniere = cotisations.get(i);

@@ -15,14 +15,12 @@ public class Personne extends AmateurDArbres{
         this.adresse = adresse;
     }
 
-    public Personne(Membre membre){
-        super(membre.getId());
-        this.nom = membre.getNom();
-        this.prenom = membre.getPrenom();
-        this.dateDeNaissance = membre.getDateDeNaissance();
-        this.adresse = membre.getAdresse();
-        membre = null;
-
+    protected Personne(String nom, String prenom, Date dateDeNaissance, String adresse,int id) {
+        super(id);
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateDeNaissance = dateDeNaissance;
+        this.adresse = adresse;
     }
 
     public String getNom() {

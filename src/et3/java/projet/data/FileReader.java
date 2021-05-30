@@ -162,9 +162,9 @@ public class FileReader extends Mairie
 	        			geographicalPoint2D[1] = null;
 	        		}
                 Date date = new Date();
-                Arbre arbre = new Arbre(genre, espece, libelleFrancais,circonferenceEnCm, hauteurEnM, stadeDeveloppement,  adresse, geographicalPoint2D,remarquable,date, idBase);
+                Arbre arbre = new Arbre(genre, espece, libelleFrancais,circonferenceEnCm, hauteurEnM, stadeDeveloppement,  adresse, geographicalPoint2D,remarquable, date, idBase);
                 
-                AjouterArbre(arbre);
+                ajouterArbre(arbre);
                 	
                 	
                 System.out.println(

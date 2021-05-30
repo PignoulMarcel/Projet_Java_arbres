@@ -3,6 +3,8 @@ package et3.java.projet.application;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -10,15 +12,20 @@ import et3.java.projet.data.FileReader;
 
 public class Mairie {
 	
-	private List<Arbre> ListeArbre = new ArrayList<Arbre>();
-	private List<AmateurDArbres> amateurDArbres = new ArrayList<AmateurDArbres>();
-
+	private ArrayList<Arbre> ListeArbre;
+	private ArrayList<AmateurDArbres> amateurDArbres;
+	private Date date;
 	
-	public void AjouterArbre(Arbre arbre) {
-		ListeArbre.add(arbre);
+	public void ajouterArbre(Arbre arbre) {
+		if(!ListeArbre.contains(arbre)) {
+			for (AmateurDArbres notifies : amateurDArbres) {
+				notifies.getNotification(new OperationArbre(arbre, TypeModif.plantage, date));
+			}
+			ListeArbre.add(arbre);
+		}
 	}
 	
-	public void ChargerArbre() {
+	public void chargerArbre() {
 		
 		
 		File tempFile = new File("./data/data.csv");
@@ -37,33 +44,40 @@ public class Mairie {
 				System.out.println("Aucun fichier " + tempFile.getName());
 			
 		}
-}
-		
-	
+	}
 
-	public Mairie() {
-		
+	public Mairie(){
+
+	}
+
+	public Mairie(Date date) {
+		this.date = date;
 	}
 	
-	
-	
-	public void generererArbreRemarquable(Arbre arbre){
-		ListeArbre.get(rechercheArbre(arbre)).setRemarquable(false);
+	public void ajoutDate(Date date){
+		this.date = new Date(this.date.getTime() + date.getTime());
 	}
-	
-	public int rechercheArbre(Arbre arbre) {
-		for(int i =0; i<ListeArbre.size();i++) {
-			if(ListeArbre.get(i).getid() == arbre.getid()) {
-				return i;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void suppressionArbre(Arbre arbre){
+		if(ListeArbre.contains(arbre)) {
+			for (AmateurDArbres notifies : amateurDArbres) {
+				notifies.getNotification(new OperationArbre(arbre, TypeModif.decoupage, date));
 			}
+			ListeArbre.remove(arbre);
 		}
-		System.out.println("L'arbre recherché n'existe pas.\n");
-		return 0;
 	}
 
-	public void operationArbre(){
-
+	public void ajoutRemarquable(Arbre arbre){
+		if(ListeArbre.contains(arbre)) {
+			for (AmateurDArbres notifies : amateurDArbres) {
+				notifies.getNotification(new OperationArbre(arbre, TypeModif.classificationRemarquable, date));
+			}
+			arbre.setRemarquable(date);
+		}
 	}
-
 
 }

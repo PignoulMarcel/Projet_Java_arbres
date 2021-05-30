@@ -1,8 +1,13 @@
 package et3.java.projet.application;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+
 public class AmateurDArbres {
-    protected final int id;
+    private final int id;
     private static Mairie mairie;
+    private ArrayList<OperationArbre> operationArbres;
 
     private static int incId = 0;
 
@@ -19,8 +24,8 @@ public class AmateurDArbres {
     	return id;
     }
 
-    public void getNotification(Arbre arbre, TypeModif type){
-        //TODO peut etre
+    public void getNotification(OperationArbre operation){
+        operationArbres.add(operation);
     }
     
 }

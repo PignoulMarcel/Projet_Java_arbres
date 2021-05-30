@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.Scanner;
 
 import et3.java.projet.application.*;
@@ -12,12 +13,9 @@ import et3.java.projet.data.FileReader;
 
 public class Main 
 {
-	private Mairie mairie;
-
-	Association association = new Association();
 	
 	//Affichage sur la console et gestion des entrées/sorties
-	public static void GestionAffichage() {
+	public static void GestionAffichage(Mairie mairie) {
 		while(true) {
 
 			StringBuilder sb = new StringBuilder();
@@ -73,15 +71,18 @@ public class Main
 				mairie.operationArbre(abattage);
 			}
 
-			
+			Personne personne = new Personne("oui","le",new Date(25,5,20),"pl");
+			Membre membre = new Membre(personne,new Date(25,5,20));
+
 		}
 	}
 	
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
+		Mairie mairie = new Mairie(new Date(2021,05,30));
 		//Charge les arbres
-		this.mairie.ChargerArbre();			//COMPREND PAS PK IL ME DIT DE METTRE UN 'STATIC'
-		GestionAffichage();
+		mairie.chargerArbre();			//COMPREND PAS PK IL ME DIT DE METTRE UN 'STATIC'
+		GestionAffichage(mairie);
 		
 	}
 	

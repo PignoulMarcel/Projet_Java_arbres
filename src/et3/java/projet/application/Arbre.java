@@ -59,14 +59,16 @@ public class Arbre  {
 	public boolean getRemarquable() {
 		return Remarquable;
 	}
-	public void setRemarquable(boolean Remarquable) {
-		 this.Remarquable = Remarquable;
-	}
 	public Date getADate_remarquable() {
 		return Date_remarquable;
 	}
 	public int getid() {
 		return id;
+	}
+
+	public void setRemarquable(Date date) {
+		this.Remarquable = Remarquable;
+		this.Date_remarquable = date;
 	}
 
 }
