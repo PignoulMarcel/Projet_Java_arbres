@@ -36,6 +36,16 @@ public class Membre extends Personne{
         return new Vote(this, (ArrayList<Arbre>) arbreVote);
     }
     
+    public Operation getDerniereOperation() {
+    	
+    	Operation derniere = cotisations.get(0);		//On suppose qu'il existe au minimum 1 opération
+    	for(int i =1; i<cotisations.size(); i++) {
+    		if(cotisations.get(i).getDate().before(derniere.getDate())) {
+    			derniere = cotisations.get(i);
+    		}
+    	}
+    	return derniere;
+    }
     
 
 }

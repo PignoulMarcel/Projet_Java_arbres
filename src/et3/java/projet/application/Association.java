@@ -78,7 +78,7 @@ public class Association extends Entite {
 		Date UneAnnée = new Date(1,0,0);
     	for(int i = 0; i<membres.size();i++) {
     		
-    		if((System.currentTimeMillis() - membres.get(i).getCotisationPayé().getTime()) > UneAnnée.getTime() ) {
+    		if((System.currentTimeMillis() - membres.get(i).getDerniereOperation().getDate().getTime()) > UneAnnée.getTime() ) {
     			try {
     				renvoiMembre(membres.get(i));
     				NbMembreRenvoyé +=1;
@@ -88,11 +88,11 @@ public class Association extends Entite {
     		}
     	}
     	if(NbMembreRenvoyé == 1) {
-    		System.out.println("1 personne n'a pas réglé ses cotisations");
+    		System.out.println("1 personne n'a pas réglé sa cotisation");
     	}else if(NbMembreRenvoyé>1) {
-    		System.out.println(NbMembreRenvoyé + " personnes n'ont pas réglé leurs cotisations");
+    		System.out.println(NbMembreRenvoyé + " personnes n'ont pas réglé leur cotisation");
     	}else {
-    		System.out.println("Tous les membres ont réglé leurs cotisations");
+    		System.out.println("Tous les membres ont réglé leur cotisation");
     	}
     }
     

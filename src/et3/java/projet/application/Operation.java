@@ -18,6 +18,9 @@ public class Operation {
     public int getMontant() {
         return montant;
     }
+    public Date getDate() {
+    	return date;
+    }
 
     public void setMontant(int montant) {
         this.montant = montant;
