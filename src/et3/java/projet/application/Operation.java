@@ -6,16 +6,16 @@ public class Operation {
     private AmateurDArbres debiteur;
     private AmateurDArbres crediteur;
     private Date date;
-    private int montant;
+    private float montant;
 
-    public Operation(AmateurDArbres debiteur, AmateurDArbres crediteur, Date date, int montant) {
+    public Operation(AmateurDArbres debiteur, AmateurDArbres crediteur, float montant) {
         this.debiteur = debiteur;
         this.crediteur = crediteur;
-        this.date = date;
+        this.date = new Date();
         this.montant = montant;
     }
 
-    public int getMontant() {
+    public float getMontant() {
         return montant;
     }
     public AmateurDArbres getDebiteur() {

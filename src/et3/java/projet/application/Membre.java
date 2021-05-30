@@ -10,25 +10,12 @@ public class Membre extends Personne{
     private Date dateArrivee;
     private ArrayList<Operation> cotisations;
 
-
     public Membre(Personne personne, Date date){
         super(personne.getNom(),personne.getPrenom(),personne.getDateDeNaissance(),personne.getAdresse(), personne.getId());
         this.dateArrivee = date;
         cotisations = new ArrayList<Operation>();
         personne = null;
 
-    }
-
-
-	public void genererRecette(){
-    	int indice = 0;
-    	for(int i = 0; i<cotisations.size(); i++) {
-    		if((System.currentTimeMillis() -cotisations.get(i).getDate().getTime()) < new Date(1,0,0).getTime()) {
-    			indice +=1;
-    			System.out.println("Cotisation n°" + indice + ", le "+ cotisations.get(i).getDate().toString() +", de " + cotisations.get(i).getDebiteur() + " � " + cotisations.get(i).getCrediteur() + " pour un montant de " + cotisations.get(i).getMontant() + "\n");
-    
-    		}
-    	}
     }
 
     public Visite visite(Arbre arbre){
@@ -44,20 +31,13 @@ public class Membre extends Personne{
         }
         return new Vote((ArrayList<Arbre>) arbreVote);
     }
-    
-    public Operation getDerniereOperation() {
-    	
-    	Operation derniere = cotisations.get(0);		//On suppose qu'il existe au minimum 1 op�ration
-    	for(int i =1; i<cotisations.size(); i++) {
-    		if(cotisations.get(i).getDate().before(derniere.getDate())) {
-    			derniere = cotisations.get(i);
-    		}
-    	}
-    	return derniere;
-    }
 
     public ArrayList<Operation> getCotisations() {
         return cotisations;
+    }
+
+    public void ajoutCotisation(Operation cotisation){
+        cotisations.add(cotisation);
     }
 
 }

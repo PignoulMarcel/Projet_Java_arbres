@@ -14,54 +14,59 @@ import et3.java.projet.application.Operation;
 public class Association extends Entite {
 	Membre president;
 	ArrayList<Visite> listeVisites;
-	ArrayList<Operation> listeOperations;
+	ArrayList<Operation> operations;
+	StringBuilder rapport;
 	ArrayList<Membre> membres;
 	ArrayList<AmateurDArbres> donateurs;
 
-	
+	public Association(String nomEntreprise) {
+		super(nomEntreprise);
+		this.president = null;
+		this.listeVisites = new ArrayList<Visite>();
+		this.operations = new ArrayList<Operation>();
+		this.rapport = new StringBuilder();
+		this.membres = new ArrayList<Membre>();
+		this.donateurs = new ArrayList<AmateurDArbres>();
+	}
+
 	//Renvoi le memebre de l'association et supprime ses données
 	//@param membre est le membre à renvoyer
-	public void renvoiMembre(Membre membre){
+	public void departMembre(Membre membre){
 					if(!membres.contains(membre)){
-						System.out.println("Le membre " + membre.getNom() + " " + membre.getPrenom() + " n'a pas pu être trouvé");
+						rapport.append(new Date().toString() + "- " + "Le membre " + membre.getNom() + " " + membre.getPrenom() + " n'a pas pu être exclu car il n'a pas été trouvé\n");
 
 					}else if(this.president.getId()==membre.getId()){
-    					System.out.println("Vous ne pouvez pas renvoyer le president");
+						rapport.append(new Date().toString() + "- " + "Le membre " + membre.getNom() + " " + membre.getPrenom() + "n'a pas pu être exclu car il était président\n");
 
     				}else {
 						membres.remove(membre);
 						//On ne sait pas s'il redevient amateurDArbre (on considere que non)
-						System.out.println("Le membre " + membre.getNom() + " " + membre.getPrenom() + " ne fait plus parti de l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
+						rapport.append(new Date().toString() + "- " + "Le membre " + membre.getNom() + " " + membre.getPrenom() + " ne fait plus parti de l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
 					}
-	}
-
-	
-	public Membre ChercheMembre(Personne personne) {
-		//TODO
-		return null;
 	}
 	
 	public Membre GetPresident() {
 		return president;
 	}
 
-	public void SetPresident(Membre president) {
-		if(this.president!=null && this.president.getId()!=president.getId())this.president = president;
+	public void setPresident(Membre president) {
+		if(this.president == null){
+			this.president = president;
+			rapport.append(new Date().toString() + "- " + president.getNom() + " " + president.getPrenom() + " a été élu président\n");
+		}else if(this.president.getId()!=president.getId()){
+			this.president = president;
+			rapport.append(new Date().toString() + "- " + president.getNom() + " " + president.getPrenom() + " a été élu président\n");
+		}
+
 	}
 
-    public Operation genererRapport(){
-    	Operation operation = new Operation();
-    	return operation;
+    public void genererRapport(){
+    	System.out.println(rapport);
     }
     
     //Met à zero le rapport d'activité de l'exercice écoulé
-    //Appelé lors d'une nouvelle année
     public void ResetRapport() {	
-
-    }
-
-    public Demande envoiDemande(){
-
+		rapport = new StringBuilder();
     }
 
     public boolean inscription(Personne personne){
@@ -70,9 +75,10 @@ public class Association extends Entite {
 			if(mem.getId()==nouveauMembre.getId())return false;
 		}
 		membres.add(nouveauMembre);
+		if(membres.size()==1) setPresident(nouveauMembre);
+		rapport.append(new Date().toString() + "- " +nouveauMembre.getNom() + " " + nouveauMembre.getPrenom()+" a rejoint l'association\n");
 		return true;
     }
-
 
     //Vérifie si chaque membre a payé ses cotisations durant l'année écoulé
     //Si pas le cas, le supprime de la liste des membres
@@ -87,7 +93,7 @@ public class Association extends Entite {
 
     		if(!payé) {
     			try {
-    				renvoiMembre(membres.get(i));
+    				departMembre(membres.get(i));
     				NbMembreRenvoye +=1;
     			}catch (IndexOutOfBoundsException e) {
     				System.out.println(e.getMessage());
@@ -95,52 +101,40 @@ public class Association extends Entite {
     		}
     	}
     	if(NbMembreRenvoye == 1) {
-    		System.out.println("1 personne n'a pas réglé sa cotisation");
+			rapport.append(new Date().toString() + "- " +"1 personne n'a pas réglé sa cotisation");
     	}else if(NbMembreRenvoye>1) {
-    		System.out.println(NbMembreRenvoye + " personnes n'ont pas réglé leur cotisation");
+			rapport.append(new Date().toString() + "- " +NbMembreRenvoye + " personnes n'ont pas réglé leur cotisation");
     	}else {
-    		System.out.println("Tous les membres ont réglé leur cotisation");
+			rapport.append(new Date().toString() + "- " +"Tous les membres ont réglé leur cotisation");
     	}
     }
-    //TODO
+
+
     public boolean payerFacture(float montant){
-    	float montantTotal = 0f;				//Montant que possède l'association
-    	for(int i = 0; i<membres.size(); i++) {
-    		montantTotal += membres.get(i).getFonds();
-    		if(montantTotal>montant) {
-    			for(int j = 0; j<membres.size(); j++) {
-    				if(membres.get(j).getFonds()>= montant){
-    					membres.get(j).setFonds(membres.get(j).getFonds()-montant);
-    					return true;
-    				}else {
-    					montant -= membres.get(j).getFonds();
-    					membres.get(j).setFonds(0);
-    				}
-    			}
-    		}
-    	}
-    	
-    	for(int i = 0; i<donateurs.size(); i++) {
-    		montantTotal += donateurs.get(i).getFonds();
-    		if(montantTotal>montant) {
-    			for(int j = 0; j<donateurs.size(); j++) {
-    				if(donateurs.get(j).getFonds()>= montant){
-    					donateurs.get(j).setFonds(membres.get(j).getFonds()-montant);
-    					return true;
-    				}else {
-    					montant -= donateurs.get(j).getFonds();
-    					donateurs.get(j).setFonds(0);
-    				}
-    			}
-    		}
-    	}
+    	for(Membre membre:membres){
+			if(Math.random()>0.95 && membre.getFonds()>=montant){
+				membre.changeFonds(-montant);
+				this.changeFonds(montant);
+				Operation operation = new Operation(membre,this, montant);
+				operations.add(operation);
+				membre.ajoutCotisation(operation);
+				rapport.append(operation.getDate().toString() + "- "  + membre.getNom() + " " + membre.getPrenom() + " a payé " + montant + "€ \n");
+			}
+		}
     	return false;
     }
-    
-    
-    public void payer(Membre membre){
 
-    }
+    public void demandeDons(){
+		for(AmateurDArbres donateur : donateurs){
+			if(Math.random()>0.5 && donateur.getFonds()>=1.0f){
+				float montant = (float) (Math.floor(100 * (Math.random() * donateur.getFonds()))/100.0f);
+				donateur.changeFonds(-montant);
+				this.changeFonds(montant);
+				operations.add(new Operation(donateur,this, montant));
+				rapport.append(new Date().toString() + "- Un donateur a donné " + montant + "€ \n");
+			}
+		}
+	}
 
     //Ajoute l'amateur à la liste des amateurs d'arbre
     public boolean ajouterDonateur(AmateurDArbres amateurDArbres){
@@ -148,6 +142,7 @@ public class Association extends Entite {
 			if(donateur.getId()==amateurDArbres.getId())return false;
 		}
 		donateurs.add(amateurDArbres);
+		rapport.append(new Date().toString() + "- L'association a un nouveau donateur \n");
 		return true;
     }
     
@@ -155,10 +150,10 @@ public class Association extends Entite {
     //@param amateurDArbres l'amateur qui doit etre supprimé de la liste
     public void supprimerDonateur(AmateurDArbres amateurDArbres){
 		if(!donateurs.contains(amateurDArbres)){
-			System.out.println("Le donnateur n'a pas pu être trouvé");
+			rapport.append(new Date().toString() + "- Le donnateur n'a pas pu être trouvé\n");
 		}else {
 			donateurs.remove(amateurDArbres);
-			System.out.println("Le donateur ne donne plus à l'assocation. L'ensemble de ses données personnelles ont été supprimées.\n");
+			rapport.append(new Date().toString() + "- L'association a perdu un donateur. L'ensemble de ses données personnelles ont été supprimées.\n");
 		}
     }
 
@@ -201,9 +196,24 @@ public class Association extends Entite {
 				return 1;
 			}
 		});
+		Vote voteFinal = new Vote((ArrayList<Arbre>)uniquesArbres)
+		rapport.append(new Date().toString() + "- Les votes de l'association sont : \n"
+				+"  1. " + voteFinal.getListeArbre().get(0).getNom()
+				+"  2. " + voteFinal.getListeArbre().get(1).getNom()
+				+"  3. " + voteFinal.getListeArbre().get(2).getNom()
+				+"  4. " + voteFinal.getListeArbre().get(3).getNom()
+				+"  5. " + voteFinal.getListeArbre().get(4).getNom() + "\n");
 
-		return new Vote((ArrayList<Arbre>)uniquesArbres);
+		return voteFinal;
 
 	}
+
+
+
+	public void payer(Membre membre){
+
+	}
+
+
 
 }
